@@ -17,10 +17,10 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
-      flash[:success] = "Post creado exitosamente!"
+      flash[:success] = "¡Post creado exitosamente!"
       redirect_to post_path(@post)
     else
-      flash[:error] = @post.errors.full_messages
+      flash[:alert] = @post.errors.full_messages.join(", ")
       redirect_to new_post_path
     end
   end
@@ -33,7 +33,7 @@ class PostsController < ApplicationController
       flash[:success] = "¡Post actualizado exitosamente!"
       redirect_to post_path(@post)
     else
-      flash[:error] = @post.errors.full_messages
+      flash[:alert] = @post.errors.full_messages.join(", ")
       render :edit
     end
   end
@@ -42,7 +42,7 @@ class PostsController < ApplicationController
     if @post.destroy
       flash[:success] = "¡El post ha sido eliminado!"
     else
-      flash[:error] = "Hubo un problema al eliminar el post."
+      flash[:alert] = "Hubo un problema al eliminar el post."
     end
     redirect_to posts_path
   end
@@ -54,11 +54,7 @@ class PostsController < ApplicationController
   end
 
   def set_post
-    @post = Post.find_by(id: params[:id]) # Usar find_by para evitar excepciones si el post no existe
-    unless @post
-      flash[:alert] = "El post no fue encontrado."
-      redirect_to posts_path
-    end
+    @post = Post.find(params[:id]) # Usar `find` en lugar de `find_by`
   end
 
   def authorize_user!

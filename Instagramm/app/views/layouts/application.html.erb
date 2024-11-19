@@ -20,10 +20,13 @@
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
+          <li><%= link_to "Home", root_path %></li>
           <li><%= link_to "New Post", new_post_path %></li>
           <% if current_user %>
+          <li>
+          <%= button_to "Logout", destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'nav-link logout-link' %>
+          </li>
             <!-- Enlace de Logout envuelto en <li> -->
-            <li><%= link_to 'Logout', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' } %></li>
           <% else %>
             <li><%= link_to "Login", new_user_session_path %></li>
             <li><%= link_to "Register", new_user_registration_path %></li>

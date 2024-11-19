@@ -1,10 +1,9 @@
 <% @posts.each do |x| %>
   <div>
-    <%= image_tag x.image, width: "300px", height: "200px" if x.image.attached? %>
+    <%= image_tag x.image, width: "800px", height: "500px" if x.image.attached? %>
     <br>
     <%= x.description %>
     <div class="link">
-      <%= link_to "Destroy", x, method: :delete, data: { confirm: "Are you sure?" } %>
       <%= link_to "Edit", edit_post_path(x) %>
       <%= link_to "Show", x %>
     </div>
